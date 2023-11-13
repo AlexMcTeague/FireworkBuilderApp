@@ -1,5 +1,5 @@
 ﻿namespace FireworkDomain {
-    internal class Firework {
+    public class Firework {
         public int ID { get; set; }
         public string Name { get; set; }
         public Rocket Rocket { get; set; }

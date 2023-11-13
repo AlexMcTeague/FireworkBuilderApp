@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FireworkConsole", "Firework
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FireworkDomain", "FireworkDomain\FireworkDomain.csproj", "{6B6B1D56-17FF-4375-8B22-6BCA8D593522}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FireworkData", "FireworkData\FireworkData.csproj", "{1814D295-25DC-43C8-87C8-02BA67B389D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6B6B1D56-17FF-4375-8B22-6BCA8D593522}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B6B1D56-17FF-4375-8B22-6BCA8D593522}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B6B1D56-17FF-4375-8B22-6BCA8D593522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1814D295-25DC-43C8-87C8-02BA67B389D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1814D295-25DC-43C8-87C8-02BA67B389D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1814D295-25DC-43C8-87C8-02BA67B389D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1814D295-25DC-43C8-87C8-02BA67B389D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

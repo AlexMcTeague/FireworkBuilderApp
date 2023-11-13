@@ -1,5 +1,5 @@
 ﻿namespace FireworkDomain {
-    internal enum PayloadShape {
+    public enum PayloadShape {
         Ring,
         Circle,
         Square,
