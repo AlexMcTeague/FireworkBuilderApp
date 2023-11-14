@@ -6,9 +6,11 @@ namespace FireworkConsole {
     internal class Program {
         static void Main(string[] args) {
             FireworkContext _context = new FireworkContext();
-            _context.Database.EnsureCreated();
+            // EnsureCreated() was only necessary on the first run. Needs to be replaced with more consistent logic for new computers
+            //_context.Database.EnsureCreated();
 
 
+            ReadPayloads();
             CreatePayload();
             ReadPayloads();
             UpdatePayload();
