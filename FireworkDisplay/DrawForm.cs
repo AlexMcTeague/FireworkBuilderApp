@@ -1,6 +1,7 @@
 namespace FireworkDisplay {
     public partial class DrawForm : Form {
         IList<Point> points = new List<Point>();
+        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
 
         public DrawForm() {
             InitializeComponent();
@@ -25,23 +26,36 @@ namespace FireworkDisplay {
             p.Y = 100;
             AddPoint(p);
 
-            Refresh();
+            timer.Interval = 50;
+            timer.Tick += new EventHandler(Timer_Tick);
+            Start();
         }
 
         protected override void OnPaint(PaintEventArgs e) {
             base.OnPaint(e);
             Point previousPoint = Point.Empty;
-            foreach (Point point in points) {
+            for (int i = 0; i < points.Count; i++) {
+                Point p = points[i];
+                p.X = points[i].X + 1;
+                p.Y = points[i].Y + 1;
+                points[i] = p;
                 if (previousPoint != Point.Empty) {
-                    e.Graphics.DrawLine(Pens.Red, previousPoint, point);
+                    e.Graphics.DrawLine(Pens.Red, previousPoint, points[i]);
                 }
-                previousPoint = point;
+                previousPoint = points[i];
             }
         }
 
         public void AddPoint(Point point) {
             points.Add(point);
-            this.Refresh();
+        }
+
+        public void Start() {
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e) {
+            Refresh();
         }
     }
 }
