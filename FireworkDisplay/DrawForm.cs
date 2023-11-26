@@ -1,12 +1,16 @@
+using FireworkDomain;
+using System.Globalization;
+
 namespace FireworkDisplay {
     public partial class DrawForm : Form {
         IList<Point> points = new List<Point>();
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+        IList<FireworkVisual> fireworks = new List<FireworkVisual>();
 
         public DrawForm() {
             InitializeComponent();
-            Width = 800;
-            Height = 500;
+            Width = 1200;
+            Height = 800;
             BackColor = Color.Black;
 
             Point p = new Point();
@@ -26,6 +30,8 @@ namespace FireworkDisplay {
             p.Y = 100;
             AddPoint(p);
 
+            fireworks.Add(new FireworkVisual());
+
             timer.Interval = 50;
             timer.Tick += new EventHandler(Timer_Tick);
             Start();
@@ -33,16 +39,24 @@ namespace FireworkDisplay {
 
         protected override void OnPaint(PaintEventArgs e) {
             base.OnPaint(e);
-            Point previousPoint = Point.Empty;
-            for (int i = 0; i < points.Count; i++) {
-                Point p = points[i];
-                p.X = points[i].X + 1;
-                p.Y = points[i].Y + 1;
-                points[i] = p;
-                if (previousPoint != Point.Empty) {
-                    e.Graphics.DrawLine(Pens.Red, previousPoint, points[i]);
+            for (int i = 0; i < fireworks.Count; i++) {
+                switch (fireworks[i].state) {
+                    case FireworkVisual.FireworkState.Launch:
+                        fireworks[i].state = FireworkVisual.FireworkState.Coast;
+                        break;
+                    case FireworkVisual.FireworkState.Coast:
+                        fireworks[i].Detonate();
+                        break;
+                    case FireworkVisual.FireworkState.Detonate:
+                        fireworks[i].UpdateParticles();
+                        for (int j = 0; j < fireworks[i].points.Count; j++) {
+                            e.Graphics.FillEllipse(new SolidBrush(fireworks[i].color), fireworks[i].points[j].X, fireworks[i].points[j].Y, 10, 10);
+                        }
+                        break;
+                    case FireworkVisual.FireworkState.Discard:
+                        fireworks.Remove(fireworks[i]);
+                        break;
                 }
-                previousPoint = points[i];
             }
         }
 
@@ -56,6 +70,14 @@ namespace FireworkDisplay {
 
         private void Timer_Tick(object sender, EventArgs e) {
             Refresh();
+        }
+
+        void AddFirework(FireworkVisual firework) {
+            fireworks.Add(firework);
+        }
+
+        void AddFirework(Firework firework) {
+            fireworks.Add(new FireworkVisual(firework));
         }
     }
 }
