@@ -1,15 +1,18 @@
 ﻿using FireworkData;
+using FireworkDisplay;
 using FireworkDomain;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace FireworkConsole {
     internal class Program {
-        static void Main(string[] args) {
+        [STAThread]
+        static void Main() {
             FireworkContext _context = new FireworkContext();
-            // EnsureCreated() was only necessary on the first run. Needs to be replaced with more consistent logic for new computers
+            // EnsureCreated() was only necessary on the first run. Needs to be replaced with more consistent logic for users on other computers
             //_context.Database.EnsureCreated();
 
-
+            /*
             ReadPayloads();
             CreatePayload();
             ReadPayloads();
@@ -17,6 +20,12 @@ namespace FireworkConsole {
             ReadPayloads();
             DeletePayload();
             ReadPayloads();
+            */
+
+            //Set up the Draw Form Window
+            ApplicationConfiguration.Initialize();
+            DrawForm f = new DrawForm();
+            Application.Run(f);
 
 
             void CreatePayload() {
