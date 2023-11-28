@@ -1,36 +1,20 @@
+using FireworkData;
 using FireworkDomain;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
 namespace FireworkDisplay {
     public partial class DrawForm : Form {
-        IList<Point> points = new List<Point>();
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         IList<FireworkVisual> fireworks = new List<FireworkVisual>();
+        Random rnd = new Random(); //temporary
 
         public DrawForm() {
             InitializeComponent();
             Width = 1200;
-            Height = 800;
+            Height = 1200;
             BackColor = Color.Black;
-
-            Point p = new Point();
-            p.X = 100;
-            p.Y = 100;
-            AddPoint(p);
-            p.X = 200;
-            p.Y = 100;
-            AddPoint(p);
-            p.X = 200;
-            p.Y = 200;
-            AddPoint(p);
-            p.X = 100;
-            p.Y = 200;
-            AddPoint(p);
-            p.X = 100;
-            p.Y = 100;
-            AddPoint(p);
-
-            fireworks.Add(new FireworkVisual());
 
             timer.Interval = 50;
             timer.Tick += new EventHandler(Timer_Tick);
@@ -38,30 +22,32 @@ namespace FireworkDisplay {
         }
 
         protected override void OnPaint(PaintEventArgs e) {
+            //Temporary loop logic
+            var _context = new FireworkContext();
+            List<Firework> tempFireworks = _context.Fireworks.Include(f => f.Payloads).Include(f => f.Rocket).ToList();
+            if (fireworks.Count == 0) {
+                Firework tempFirework = tempFireworks[rnd.Next(0, tempFireworks.Count)];
+                fireworks.Add(new FireworkVisual(tempFirework));
+            }
+
+
             base.OnPaint(e);
             for (int i = 0; i < fireworks.Count; i++) {
-                switch (fireworks[i].state) {
+                FireworkVisual f = fireworks[i];
+                switch (f.state) {
                     case FireworkVisual.FireworkState.Launch:
-                        fireworks[i].state = FireworkVisual.FireworkState.Coast;
-                        break;
-                    case FireworkVisual.FireworkState.Coast:
-                        fireworks[i].Detonate();
+                        f.Draw(e);
+                        f.RocketTick();
                         break;
                     case FireworkVisual.FireworkState.Detonate:
-                        fireworks[i].UpdateParticles();
-                        for (int j = 0; j < fireworks[i].points.Count; j++) {
-                            e.Graphics.FillEllipse(new SolidBrush(fireworks[i].color), fireworks[i].points[j].X, fireworks[i].points[j].Y, 10, 10);
-                        }
+                        f.Draw(e);
+                        f.PayloadTick();
                         break;
                     case FireworkVisual.FireworkState.Discard:
                         fireworks.Remove(fireworks[i]);
                         break;
                 }
             }
-        }
-
-        public void AddPoint(Point point) {
-            points.Add(point);
         }
 
         public void Start() {

@@ -3,10 +3,16 @@ using System.Drawing;
 
 namespace FireworkDomain {
     public class Payload {
-        public int ID { get; set; }
+        public int PayloadID { get; set; }
         public string Name { get; set; }
         public PayloadShape Shape { get; set; }
-        public decimal Size { get; set; }
+        public double Size { get; set; } //Generally equals radius in pixels
+        public int particleCount { get; set; }
+        public List<Firework> Fireworks { get; set; }
+
+        public Payload() {
+            Fireworks = new List<Firework>();
+        }
 
         public int ColorARGB {
             get {

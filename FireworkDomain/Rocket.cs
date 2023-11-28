@@ -3,10 +3,15 @@ using System.Drawing;
 
 namespace FireworkDomain {
     public class Rocket {
-        public int ID { get; set; }
+        public int RocketID { get; set; }
         public string Name { get; set; }
-        public decimal Speed { get; set; }
+        public double Speed { get; set; }
         public decimal TargetAltitude { get; set; }
+        public List<Firework> Fireworks { get; set; }
+
+        public Rocket() {
+            Fireworks = new List<Firework>();
+        }
 
         public int TrailColorARGB {
             get {
