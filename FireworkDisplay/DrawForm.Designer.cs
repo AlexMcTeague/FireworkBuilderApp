@@ -27,11 +27,16 @@
             // 
             // DrawForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1200, 800);
+            AutoScaleMode = AutoScaleMode.None;
+            AutoValidate = AutoValidate.EnableAllowFocusChange;
+            BackColor = Color.Black;
+            ClientSize = new Size(1264, 977);
+            Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(3, 2, 3, 2);
+            MaximizeBox = false;
             Name = "DrawForm";
-            Text = "DrawForm";
+            Text = "Firework Builder";
             ResumeLayout(false);
         }
 

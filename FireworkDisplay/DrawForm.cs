@@ -3,22 +3,33 @@ using FireworkDomain;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace FireworkDisplay {
     public partial class DrawForm : Form {
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         IList<FireworkVisual> fireworks = new List<FireworkVisual>();
         Random rnd = new Random(); //temporary
+        Menu menu = new Menu();
 
         public DrawForm() {
             InitializeComponent();
-            Width = 1200;
-            Height = 1200;
+            Width = 1280;
+            Height = 1024;
             BackColor = Color.Black;
 
             timer.Interval = 50;
             timer.Tick += new EventHandler(Timer_Tick);
             Start();
+
+            ListBox listBox = new ListBox();
+            listBox.Location = new Point(12, 793);
+            listBox.Size = new Size(1240, 116); //Height is 4 plus 28 times number of rows
+            listBox.Click += new EventHandler(listBox_Click);
+            string[] menuArray = new string[] { "Add Component", "List Components", "Preview Fireworks", "Exit Program" };
+            listBox.Items.AddRange(menuArray);
+            listBox.SelectionMode = SelectionMode.One;
+            Controls.Add(listBox);
         }
 
         protected override void OnPaint(PaintEventArgs e) {
@@ -48,6 +59,16 @@ namespace FireworkDisplay {
                         break;
                 }
             }
+        }
+
+        private void listBox_Click(object sender, EventArgs e) {
+            ListBox lb = sender as ListBox;
+            Console.WriteLine($"DEBUG: Selected item {lb.SelectedIndex}: {lb.Items[lb.SelectedIndex].ToString()}");
+            menu.SelectItem(lb.Items[lb.SelectedIndex].ToString());
+
+            lb.Items.Clear();
+            lb.Items.AddRange(menu.Items.ToArray());
+            lb.Size = new Size(1240, 4 + (28 * menu.Items.Count));
         }
 
         public void Start() {
