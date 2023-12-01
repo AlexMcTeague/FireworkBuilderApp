@@ -5,8 +5,8 @@ namespace FireworkDomain {
     public class Rocket {
         public int RocketID { get; set; }
         public string Name { get; set; }
-        public double Speed { get; set; }
-        public decimal TargetAltitude { get; set; }
+        public int Speed { get; set; }
+        public int TargetAltitude { get; set; }
         public List<Firework> Fireworks { get; set; }
 
         public Rocket() {

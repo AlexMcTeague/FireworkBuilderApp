@@ -6,7 +6,7 @@ namespace FireworkDisplay {
         public int posX;
         public int posY;
         public int targetY;
-        public double speedY;
+        public int speedY;
         public double radius;
         public double radiusMax;
         public double lifetime;
@@ -45,7 +45,7 @@ namespace FireworkDisplay {
             Random rnd = new Random();
             posX = rnd.Next(400, 800);
 
-            targetY = (int)(1080 - rocket.TargetAltitude);  //TODO: remove hardcoded "1080", refer to targetAltitude and window height
+            targetY = 1080 - rocket.TargetAltitude;  //TODO: remove hardcoded "1080", refer to targetAltitude and window height
             
             Particle p = new Particle();
             p.angle = 0;
@@ -113,7 +113,7 @@ namespace FireworkDisplay {
         }
 
         public void RocketTick() {
-            posY -= (int)speedY;
+            posY -= speedY;
 
 
             if (posY < targetY) {
@@ -124,7 +124,7 @@ namespace FireworkDisplay {
 
         public void PayloadTick() {
             radius = (int)(radiusMax * Math.Pow(lifetime / maxLifetime, 0.5));
-            posY -= (int)speedY;
+            posY -= speedY;
             speedY -= 1;
             lifetime++;
             if (lifetime > maxLifetime) {
