@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -64,6 +65,10 @@ namespace FireworkDisplay {
             bool valid = true;
 
             payload.Name = nameBox.Text;
+            if (_context.Payloads.Where(p => p.Name == payload.Name).ToList().Count > 0) {
+                valid = false;
+                Console.WriteLine($"ERROR: A Payload with name \"{payload.Name}\" already exists! Did not save new Payload.");
+            }
 
             PayloadShape shape;
             if (PayloadShape.TryParse(shapeBox.Text, out shape)) {

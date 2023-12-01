@@ -29,8 +29,8 @@
             addPayloadToolStripMenuItem = new ToolStripMenuItem();
             addFireworkToolStripMenuItem = new ToolStripMenuItem();
             listToolStripMenuItem = new ToolStripMenuItem();
-            previewToolStripMenuItem = new ToolStripMenuItem();
             wIPNoEditFunctionalityYetToolStripMenuItem = new ToolStripMenuItem();
+            previewToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -70,6 +70,7 @@
             addFireworkToolStripMenuItem.Name = "addFireworkToolStripMenuItem";
             addFireworkToolStripMenuItem.Size = new Size(224, 26);
             addFireworkToolStripMenuItem.Text = "Add Firework";
+            addFireworkToolStripMenuItem.Click += addFireworkToolStripMenuItem_Click;
             // 
             // listToolStripMenuItem
             // 
@@ -78,18 +79,18 @@
             listToolStripMenuItem.Size = new Size(49, 24);
             listToolStripMenuItem.Text = "Edit";
             // 
+            // wIPNoEditFunctionalityYetToolStripMenuItem
+            // 
+            wIPNoEditFunctionalityYetToolStripMenuItem.Name = "wIPNoEditFunctionalityYetToolStripMenuItem";
+            wIPNoEditFunctionalityYetToolStripMenuItem.Size = new Size(292, 26);
+            wIPNoEditFunctionalityYetToolStripMenuItem.Text = "WIP - No Edit functionality yet";
+            // 
             // previewToolStripMenuItem
             // 
             previewToolStripMenuItem.Name = "previewToolStripMenuItem";
             previewToolStripMenuItem.Size = new Size(115, 24);
             previewToolStripMenuItem.Text = "Quick Preview";
             previewToolStripMenuItem.DropDownOpening += previewToolStripMenuItem_DropDownOpening;
-            // 
-            // wIPNoEditFunctionalityYetToolStripMenuItem
-            // 
-            wIPNoEditFunctionalityYetToolStripMenuItem.Name = "wIPNoEditFunctionalityYetToolStripMenuItem";
-            wIPNoEditFunctionalityYetToolStripMenuItem.Size = new Size(292, 26);
-            wIPNoEditFunctionalityYetToolStripMenuItem.Text = "WIP - No Edit functionality yet";
             // 
             // DrawForm
             // 
@@ -104,6 +105,7 @@
             Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             Name = "DrawForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Firework Builder";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

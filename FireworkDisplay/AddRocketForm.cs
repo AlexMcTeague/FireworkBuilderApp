@@ -63,6 +63,12 @@ namespace FireworkDisplay {
             bool valid = true;
 
             rocket.Name = nameBox.Text;
+            if (_context.Rockets.Where(r => r.Name == rocket.Name).ToList().Count > 0) {
+                valid = false;
+                Console.WriteLine($"ERROR: A Rocket with name \"{rocket.Name}\" already exists! Did not save new Rocket.");
+            }
+
+
             int speed;
             if (int.TryParse(speedBox.Text, out speed)) {
                 rocket.Speed = speed;

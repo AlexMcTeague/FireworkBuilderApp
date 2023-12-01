@@ -61,5 +61,9 @@ namespace FireworkData {
             
             SaveChanges();
         }
+
+        public List<string> GetFireworkNames() {
+            return Fireworks.Select(f => f.Name).ToList();
+        }
     }
 }

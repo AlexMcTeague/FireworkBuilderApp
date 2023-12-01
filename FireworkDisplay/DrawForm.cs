@@ -61,7 +61,7 @@ namespace FireworkDisplay {
         private void previewToolStripMenuItem_DropDownOpening(object sender, EventArgs e) {
             ToolStripMenuItem mi = sender as ToolStripMenuItem;
 
-            List<string> fireworkNames = _context.Fireworks.Select(f => f.Name).ToList();
+            List<string> fireworkNames = _context.GetFireworkNames();
             ToolStripMenuItem[] tsiArray = new ToolStripMenuItem[fireworkNames.Count];
 
             for (int i = 0; i < tsiArray.Length; i++) {
@@ -92,6 +92,12 @@ namespace FireworkDisplay {
             AddPayloadForm addPayloadForm = new AddPayloadForm();
             addPayloadForm.Show();
             addPayloadForm.Activate();
+        }
+
+        private void addFireworkToolStripMenuItem_Click(object sender, EventArgs e) {
+            AddFireworkForm addFireworkForm = new AddFireworkForm();
+            addFireworkForm.Show();
+            addFireworkForm.Activate();
         }
     }
 }
