@@ -62,8 +62,13 @@ I plan to add the ability to preview Rockets and Payloads independently, and the
 
 This project meets the following requirements for Code Louisville:
 * "Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program."
+
 This app populates / retrieves from several Lists. For a good example, see "List<FireworkVisual> visuals" in DrawForm.cs. The List is populated with AddFireworkVisual() and used by the OnPaint event handler.
+
 * "Query your database using a raw SQL query, not EF"
+
 An example of this can be seen on line 26 of DrawForm.cs. Unfortunately Raw SQL has many limitations when it comes to many-to-many relationships, .Include
+
 * Make your application asynchronous
+
 Where possible, this app uses SaveChangesAsync and AddAsync instead of SaveChanges and Add
