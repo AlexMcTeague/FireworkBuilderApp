@@ -61,7 +61,7 @@ namespace FireworkDisplay {
                     for (int i = 0; i < particleCount; i++) {
                         Particle p = new Particle();
                         p.angle = (i * 2 * Math.PI / particleCount);
-                        p.radiusMod = payload.Size / radiusMax;
+                        p.radiusMod = ((double)payload.Size) / radiusMax;
                         p.color = payload.Color;
                         particles.Add(p);
                     }
@@ -71,9 +71,9 @@ namespace FireworkDisplay {
                         Particle p = new Particle();
                         p.angle = (i * 2 * Math.PI / particleCount);
                         if (Math.Truncate((p.angle + (Math.PI/4.0)) / (Math.PI/2.0)) % 2 == 0) {
-                            p.radiusMod = (payload.Size / radiusMax) / Math.Cos(p.angle);
+                            p.radiusMod = (((double)payload.Size) / radiusMax) / Math.Cos(p.angle);
                         } else {
-                            p.radiusMod = (payload.Size / radiusMax) / Math.Sin(p.angle);
+                            p.radiusMod = (((double)payload.Size) / radiusMax) / Math.Sin(p.angle);
                         }
                         p.radiusMod = Math.Abs(p.radiusMod);
                         p.color = payload.Color;
@@ -84,7 +84,7 @@ namespace FireworkDisplay {
                     for (int i = 0; i < particleCount; i++) {
                         Particle p = new Particle();
                         p.angle = (i * 2 * Math.PI / particleCount);
-                        p.radiusMod = (payload.Size / radiusMax) + (0.2 * Math.Sin(8*p.angle));
+                        p.radiusMod = (((double)payload.Size) / radiusMax) + (0.2 * Math.Sin(8*p.angle));
                         p.color = payload.Color;
                         particles.Add(p);
                     }

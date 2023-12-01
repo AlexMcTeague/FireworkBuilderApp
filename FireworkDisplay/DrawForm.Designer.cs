@@ -29,10 +29,8 @@
             addPayloadToolStripMenuItem = new ToolStripMenuItem();
             addFireworkToolStripMenuItem = new ToolStripMenuItem();
             listToolStripMenuItem = new ToolStripMenuItem();
-            editRocketToolStripMenuItem = new ToolStripMenuItem();
-            editPayloadToolStripMenuItem = new ToolStripMenuItem();
-            editFireworkToolStripMenuItem = new ToolStripMenuItem();
             previewToolStripMenuItem = new ToolStripMenuItem();
+            wIPNoEditFunctionalityYetToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -63,39 +61,22 @@
             // addPayloadToolStripMenuItem
             // 
             addPayloadToolStripMenuItem.Name = "addPayloadToolStripMenuItem";
-            addPayloadToolStripMenuItem.Size = new Size(180, 26);
+            addPayloadToolStripMenuItem.Size = new Size(224, 26);
             addPayloadToolStripMenuItem.Text = "Add Payload";
+            addPayloadToolStripMenuItem.Click += addPayloadToolStripMenuItem_Click;
             // 
             // addFireworkToolStripMenuItem
             // 
             addFireworkToolStripMenuItem.Name = "addFireworkToolStripMenuItem";
-            addFireworkToolStripMenuItem.Size = new Size(180, 26);
+            addFireworkToolStripMenuItem.Size = new Size(224, 26);
             addFireworkToolStripMenuItem.Text = "Add Firework";
             // 
             // listToolStripMenuItem
             // 
-            listToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { editRocketToolStripMenuItem, editPayloadToolStripMenuItem, editFireworkToolStripMenuItem });
+            listToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { wIPNoEditFunctionalityYetToolStripMenuItem });
             listToolStripMenuItem.Name = "listToolStripMenuItem";
             listToolStripMenuItem.Size = new Size(49, 24);
             listToolStripMenuItem.Text = "Edit";
-            // 
-            // editRocketToolStripMenuItem
-            // 
-            editRocketToolStripMenuItem.Name = "editRocketToolStripMenuItem";
-            editRocketToolStripMenuItem.Size = new Size(224, 26);
-            editRocketToolStripMenuItem.Text = "Edit Rocket";
-            // 
-            // editPayloadToolStripMenuItem
-            // 
-            editPayloadToolStripMenuItem.Name = "editPayloadToolStripMenuItem";
-            editPayloadToolStripMenuItem.Size = new Size(224, 26);
-            editPayloadToolStripMenuItem.Text = "Edit Payload";
-            // 
-            // editFireworkToolStripMenuItem
-            // 
-            editFireworkToolStripMenuItem.Name = "editFireworkToolStripMenuItem";
-            editFireworkToolStripMenuItem.Size = new Size(224, 26);
-            editFireworkToolStripMenuItem.Text = "Edit Firework";
             // 
             // previewToolStripMenuItem
             // 
@@ -103,6 +84,12 @@
             previewToolStripMenuItem.Size = new Size(115, 24);
             previewToolStripMenuItem.Text = "Quick Preview";
             previewToolStripMenuItem.DropDownOpening += previewToolStripMenuItem_DropDownOpening;
+            // 
+            // wIPNoEditFunctionalityYetToolStripMenuItem
+            // 
+            wIPNoEditFunctionalityYetToolStripMenuItem.Name = "wIPNoEditFunctionalityYetToolStripMenuItem";
+            wIPNoEditFunctionalityYetToolStripMenuItem.Size = new Size(292, 26);
+            wIPNoEditFunctionalityYetToolStripMenuItem.Text = "WIP - No Edit functionality yet";
             // 
             // DrawForm
             // 
@@ -133,8 +120,6 @@
         private ToolStripMenuItem addRocketToolStripMenuItem;
         private ToolStripMenuItem addPayloadToolStripMenuItem;
         private ToolStripMenuItem addFireworkToolStripMenuItem;
-        private ToolStripMenuItem editRocketToolStripMenuItem;
-        private ToolStripMenuItem editPayloadToolStripMenuItem;
-        private ToolStripMenuItem editFireworkToolStripMenuItem;
+        private ToolStripMenuItem wIPNoEditFunctionalityYetToolStripMenuItem;
     }
 }

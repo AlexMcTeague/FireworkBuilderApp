@@ -25,9 +25,9 @@ namespace FireworkData {
                 new Rocket { RocketID = 1, Name = "Standard Gold Trail", Speed = 15, TargetAltitude = 800, TrailColor = Color.Gold }
             };
             var payloadArray = new Payload[] {
-                new Payload { PayloadID = 1, Name = "Red Flower", Size = 100.0, Shape = PayloadShape.Flower, Color = Color.Red, particleCount = 40 },
-                new Payload { PayloadID = 2, Name = "Blue Square", Size = 100.0, Shape = PayloadShape.Square, Color = Color.Blue, particleCount = 40 },
-                new Payload { PayloadID = 3, Name = "Green Circle", Size = 100.0, Shape = PayloadShape.Circle, Color = Color.Green, particleCount = 40 }
+                new Payload { PayloadID = 1, Name = "Red Flower", Size = 100, Shape = PayloadShape.Flower, Color = Color.Red, particleCount = 40 },
+                new Payload { PayloadID = 2, Name = "Blue Square", Size = 100, Shape = PayloadShape.Square, Color = Color.Blue, particleCount = 40 },
+                new Payload { PayloadID = 3, Name = "Green Circle", Size = 100, Shape = PayloadShape.Circle, Color = Color.Green, particleCount = 40 }
             };
             var fireworkArray = new Firework[] {
                 new Firework { FireworkID = 1, Name = "Standard Red Flower", RocketID = 1 },

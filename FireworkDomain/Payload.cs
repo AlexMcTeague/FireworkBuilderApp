@@ -6,7 +6,7 @@ namespace FireworkDomain {
         public int PayloadID { get; set; }
         public string Name { get; set; }
         public PayloadShape Shape { get; set; }
-        public double Size { get; set; } //Generally equals radius in pixels
+        public int Size { get; set; } //Radius in pixels
         public int particleCount { get; set; }
         public List<Firework> Fireworks { get; set; }
 

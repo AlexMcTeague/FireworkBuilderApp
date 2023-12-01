@@ -87,5 +87,11 @@ namespace FireworkDisplay {
             addRocketForm.Show();
             addRocketForm.Activate();
         }
+
+        private void addPayloadToolStripMenuItem_Click(object sender, EventArgs e) {
+            AddPayloadForm addPayloadForm = new AddPayloadForm();
+            addPayloadForm.Show();
+            addPayloadForm.Activate();
+        }
     }
 }
