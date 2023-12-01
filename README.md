@@ -21,7 +21,7 @@ This app is split into three windows:
 
 ### Main Display Window
 
-![Main display screen](https://imgur.com/I4U4dja)
+![Main display screen](https://i.imgur.com/I4U4dja.png)
 
 This is where you'll see your fireworks in action. Once selected, fireworks will launch in a continuous loop; after they explode, the particles will last for a few seconds, and when they're gone the firework will be re-launched.
 You can select a new firework to preview using the Quick Preview dropdown at the top of the window. This should list all the fireworks in the database.
@@ -33,7 +33,7 @@ This window is mostly a by-product of earlier versions of the app, however it do
 
 ### "Add _____" Windows
 
-![Add _____ Windows](https://imgur.com/2AEQAre)
+![Add _____ Windows](https://i.imgur.com/2AEQAre.png)
 
 The third window is an optional one. It will appear if you use any of the "Add -> Add _____" dropdowns at the top of the window.
 Simply fill out the details as suggested by the window, and hit Save. If your values were accepted, the window will close, otherwise an error will be printed in the console.
