@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using FireworkDomain;
-using System.Drawing;
+﻿using FireworkDomain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace FireworkData {
     public class FireworkContext:DbContext {
@@ -12,17 +12,18 @@ namespace FireworkData {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseSqlServer(
-                "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = FireworkDatabase" //see Module 15 of Lerman video
+                "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = FireworkDatabase"
             ).LogTo(
                 log=>Debug.WriteLine(log),
                 new[] {DbLoggerCategory.Database.Command.Name},
                 LogLevel.Information
-            ).EnableSensitiveDataLogging(); //Remove .EnableSensitiveDataLogging to hide parameter values in logs
+            ).EnableSensitiveDataLogging(); //Remove .EnableSensitiveDataLogging to make SQL logs more secure
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            //Seeding the database
             var rocketArray = new Rocket[] {
-                new Rocket { RocketID = 1, Name = "Standard Gold Trail", Speed = 15, TargetAltitude = 800, TrailColor = Color.Gold }
+                new Rocket { RocketID = 1, Name = "Standard Gold Trail", Speed = 20, TargetAltitude = 650, TrailColor = Color.Gold }
             };
             var payloadArray = new Payload[] {
                 new Payload { PayloadID = 1, Name = "Red Flower", Size = 100, Shape = PayloadShape.Flower, Color = Color.Red, particleCount = 40 },
@@ -41,9 +42,11 @@ namespace FireworkData {
             modelBuilder.Entity<Firework>().HasData(fireworkArray);
         }
 
-        public void ensureCreatedCustom() {
+        public void ensureSeeded() {
             this.Database.EnsureCreated();
 
+            //In this version of EF Core, you can't seed the database with many-to-many relationships.
+            //The below code further modifies the previously seeded data to include the proper relationships.
             Payload payload1 = Payloads.Find(1);
             Payload payload2 = Payloads.Find(2);
             Payload payload3 = Payloads.Find(3);
@@ -51,8 +54,6 @@ namespace FireworkData {
             Firework firework2 = Fireworks.Include(f => f.Payloads).Where(f => f.FireworkID == 2).Single();
             Firework firework3 = Fireworks.Include(f => f.Payloads).Where(f => f.FireworkID == 3).Single();
             Firework firework4 = Fireworks.Include(f => f.Payloads).Where(f => f.FireworkID == 4).Single();
-
-            Console.WriteLine($"{payload1.Name} {payload2.Name} {payload3.Name} {firework1.Name}, {firework2.Name}, {firework3.Name}, {firework4.Name}");
 
             if (firework1.Payloads.Count() == 0) firework1.Payloads.Add(payload1);
             if (firework2.Payloads.Count() == 0) firework2.Payloads.Add(payload2);
@@ -63,6 +64,7 @@ namespace FireworkData {
         }
 
         public List<string> GetFireworkNames() {
+            //This method returns a List with the names of all Fireworks
             return Fireworks.Select(f => f.Name).ToList();
         }
     }

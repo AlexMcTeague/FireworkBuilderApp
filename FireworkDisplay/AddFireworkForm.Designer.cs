@@ -1,5 +1,7 @@
 ﻿namespace FireworkDisplay {
     partial class AddFireworkForm {
+        //Most of this class is auto-generated based on the design created in the Winform Design window
+
         /// <summary>
         /// Required designer variable.
         /// </summary>

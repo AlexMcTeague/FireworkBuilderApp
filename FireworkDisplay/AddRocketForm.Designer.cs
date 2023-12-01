@@ -1,5 +1,7 @@
 ﻿namespace FireworkDisplay {
     partial class AddRocketForm {
+        //Most of this class is auto-generated based on the design created in the Winform Design window
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -121,7 +123,6 @@
             colorBox.Name = "colorBox";
             colorBox.Size = new Size(212, 28);
             colorBox.TabIndex = 9;
-            colorBox.DrawItem += colorBox_DrawItem;
             // 
             // submitButton
             // 

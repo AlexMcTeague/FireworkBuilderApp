@@ -1,5 +1,7 @@
 ﻿namespace FireworkDisplay {
     partial class AddPayloadForm {
+        //Most of this class is auto-generated based on the design created in the Winform Design window
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -151,7 +153,6 @@
             colorBox.Name = "colorBox";
             colorBox.Size = new Size(151, 28);
             colorBox.TabIndex = 16;
-            colorBox.DrawItem += colorBox_DrawItem;
             // 
             // AddPayloadForm
             // 
