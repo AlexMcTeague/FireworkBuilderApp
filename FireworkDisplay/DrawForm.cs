@@ -20,7 +20,10 @@ namespace FireworkDisplay {
             Start();
 
             //Set three of the four seeded visuals to display to the user when first opening the program
-            List<Firework> seedFireworks = _context.Fireworks.Where(f => f.FireworkID <= 3).Include(f => f.Payloads).Include(f => f.Rocket).ToList();
+            //Alternative expression: _context.Fireworks.Where(f => f.FireworkID <= 3).Include(f => f.Payloads).Include(f => f.Rocket).ToList();
+            List<Firework> seedFireworks = _context.Fireworks.FromSqlRaw("SELECT * FROM Fireworks WHERE FireworkID <= 3")
+                .Include(f => f.Payloads).Include(f => f.Rocket).ToList();
+
             if (visuals.Count == 0) {
                 foreach (Firework f in seedFireworks) {
                     visuals.Add(new FireworkVisual(f));

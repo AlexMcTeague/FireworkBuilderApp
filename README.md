@@ -2,10 +2,11 @@
 
 ## Summary
 
+**NOTE: This app contains flickering lights and may not be suitable for those with photosensitive epilepsy**
+
 This app allows you to build and display Fireworks of your choosing, by combining several pieces. Currently these pieces are:
 * The Rocket, which determines how fast and high the firework flies.
-* The Payload, which determines the shape, color, and size of the explosion.
-* Each Firework can have multiple Payloads, which allows you to get creative with combinations.
+* The Payload, which determines the shape, color, and size of the explosion. Each Firework can have multiple Payloads, which allows you to get creative with combinations.
 
 ## Installation
 
@@ -33,7 +34,9 @@ Note that currently you can only Quick Preview one firework at a time. I plan to
 
 ### Console Window
 
-This window is mostly a by-product of earlier versions of the app, however it does still display error logs when you attempt to add incorrect data via the Add menus.
+The console window is mostly a by-product of earlier versions of the app, however it does still display error logs when you attempt to add incorrect data via the Add menus.
+
+Closing the console also closes the display window (and therefore the whole app).
 
 ### "Add _____" Windows
 
@@ -58,6 +61,9 @@ I plan to add the ability to preview Rockets and Payloads independently, and the
 ### Requirements
 
 This project meets the following requirements for Code Louisville:
-* 
-* 
-* 
+* "Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program."
+This app populates / retrieves from several Lists. For a good example, see "List<FireworkVisual> visuals" in DrawForm.cs. The List is populated with AddFireworkVisual() and used by the OnPaint event handler.
+* "Query your database using a raw SQL query, not EF"
+An example of this can be seen on line 26 of DrawForm.cs. Unfortunately Raw SQL has many limitations when it comes to many-to-many relationships, .Include
+* Make your application asynchronous
+Where possible, this app uses SaveChangesAsync and AddAsync instead of SaveChanges and Add

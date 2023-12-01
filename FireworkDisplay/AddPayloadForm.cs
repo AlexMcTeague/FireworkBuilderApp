@@ -87,8 +87,8 @@ namespace FireworkDisplay {
 
             //If any errors were detected, the submit button won't close the window or save anything to the database
             if (valid) {
-                _context.Payloads.Add(payload);
-                _context.SaveChanges();
+                _context.Payloads.AddAsync(payload);
+                _context.SaveChangesAsync();
                 this.Close();
             }
         }
