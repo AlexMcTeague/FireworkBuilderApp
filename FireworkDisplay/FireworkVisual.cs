@@ -2,48 +2,37 @@
 
 namespace FireworkDisplay {
     public class FireworkVisual {
+        public Firework firework { get; set; }
         public int posX;
-        public int posY = 1200;
+        public int posY;
         public int targetY;
         public double speedY;
-        public double radius = 0;
+        public double radius;
         public double radiusMax;
-        public double lifetime = 0;
-        public double maxLifetime = 40;
+        public double lifetime;
+        public double maxLifetime;
 
-        public enum FireworkState { Launch, Detonate, Discard }
+        public enum FireworkState { Launch, Detonate }
         public FireworkState state;
 
         public List<Particle> particles = new List<Particle>();
 
-        public FireworkVisual() {
-            //Only for use in examples
-            state = FireworkState.Launch;
+        public FireworkVisual(Firework f) {
+            firework = f;
             radiusMax = 100.0;
-
-            Rocket rocket = new Rocket();
-            rocket.Speed = 15.0;
-            rocket.TargetAltitude = 800;
-            rocket.TrailColor = Color.Gold;
-            ReadyRocket(rocket);
-
-            Payload payload = new Payload();
-            payload.particleCount = 40;
-            payload.Shape = PayloadShape.Square;
-            payload.Color = Color.Green;
-            //ReadyPayload(payload);
-            payload.Shape = PayloadShape.Circle;
-            payload.Color = Color.Blue;
-            //ReadyPayload(payload);
-            payload.Shape = PayloadShape.Flower;
-            payload.Color = Color.Yellow;
-            ReadyPayload(payload);
+            Reset();
         }
 
-        public FireworkVisual(Firework firework) {
+        public void Reset() {
+            posY = 1080;
+            radius = 0;
+            lifetime = 0;
+            maxLifetime = 40;
+
             state = FireworkState.Launch;
-            radiusMax = 100;
-            // radiusMax = firework.Payloads[0].Size;
+
+            particles.Clear();
+
             ReadyRocket(firework.Rocket);
             foreach (Payload payload in firework.Payloads) {
                 ReadyPayload(payload);
@@ -56,7 +45,7 @@ namespace FireworkDisplay {
             Random rnd = new Random();
             posX = rnd.Next(400, 800);
 
-            targetY = (int)(1200 - rocket.TargetAltitude);  //TODO: remove hardcoded "1200", refer to targetAltitude and window height
+            targetY = (int)(1080 - rocket.TargetAltitude);  //TODO: remove hardcoded "1080", refer to targetAltitude and window height
             
             Particle p = new Particle();
             p.angle = 0;
@@ -72,7 +61,7 @@ namespace FireworkDisplay {
                     for (int i = 0; i < particleCount; i++) {
                         Particle p = new Particle();
                         p.angle = (i * 2 * Math.PI / particleCount);
-                        p.radiusMod = 1.0;
+                        p.radiusMod = payload.Size / radiusMax;
                         p.color = payload.Color;
                         particles.Add(p);
                     }
@@ -82,9 +71,9 @@ namespace FireworkDisplay {
                         Particle p = new Particle();
                         p.angle = (i * 2 * Math.PI / particleCount);
                         if (Math.Truncate((p.angle + (Math.PI/4.0)) / (Math.PI/2.0)) % 2 == 0) {
-                            p.radiusMod = 1.0 / Math.Cos(p.angle);
+                            p.radiusMod = (payload.Size / radiusMax) / Math.Cos(p.angle);
                         } else {
-                            p.radiusMod = 1.0 / Math.Sin(p.angle);
+                            p.radiusMod = (payload.Size / radiusMax) / Math.Sin(p.angle);
                         }
                         p.radiusMod = Math.Abs(p.radiusMod);
                         p.color = payload.Color;
@@ -95,7 +84,7 @@ namespace FireworkDisplay {
                     for (int i = 0; i < particleCount; i++) {
                         Particle p = new Particle();
                         p.angle = (i * 2 * Math.PI / particleCount);
-                        p.radiusMod = 1.0 + (0.2 * Math.Sin(8*p.angle));
+                        p.radiusMod = (payload.Size / radiusMax) + (0.2 * Math.Sin(8*p.angle));
                         p.color = payload.Color;
                         particles.Add(p);
                     }
@@ -139,7 +128,7 @@ namespace FireworkDisplay {
             speedY -= 1;
             lifetime++;
             if (lifetime > maxLifetime) {
-                state = FireworkState.Discard;
+                Reset();
             }
         }
     }

@@ -8,9 +8,8 @@ using System.Windows.Forms;
 namespace FireworkDisplay {
     public partial class DrawForm : Form {
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
-        IList<FireworkVisual> fireworks = new List<FireworkVisual>();
-        Random rnd = new Random(); //temporary
-        Menu menu = new Menu();
+        List<FireworkVisual> fireworks = new List<FireworkVisual>();
+        FireworkContext _context = new FireworkContext();
 
         public DrawForm() {
             InitializeComponent();
@@ -22,26 +21,15 @@ namespace FireworkDisplay {
             timer.Tick += new EventHandler(Timer_Tick);
             Start();
 
-            ListBox listBox = new ListBox();
-            listBox.Location = new Point(12, 793);
-            listBox.Size = new Size(1240, 116); //Height is 4 plus 28 times number of rows
-            listBox.Click += new EventHandler(listBox_Click);
-            string[] menuArray = new string[] { "Add Component", "List Components", "Preview Fireworks", "Exit Program" };
-            listBox.Items.AddRange(menuArray);
-            listBox.SelectionMode = SelectionMode.One;
-            Controls.Add(listBox);
+            List<Firework> seedFireworks = _context.Fireworks.Where(f => f.FireworkID <= 3).Include(f => f.Payloads).Include(f => f.Rocket).ToList();
+            if (fireworks.Count == 0) {
+                foreach (Firework f in seedFireworks) {
+                    fireworks.Add(new FireworkVisual(f));
+                }
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e) {
-            //Temporary loop logic
-            var _context = new FireworkContext();
-            List<Firework> tempFireworks = _context.Fireworks.Include(f => f.Payloads).Include(f => f.Rocket).ToList();
-            if (fireworks.Count == 0) {
-                Firework tempFirework = tempFireworks[rnd.Next(0, tempFireworks.Count)];
-                fireworks.Add(new FireworkVisual(tempFirework));
-            }
-
-
             base.OnPaint(e);
             for (int i = 0; i < fireworks.Count; i++) {
                 FireworkVisual f = fireworks[i];
@@ -54,21 +42,8 @@ namespace FireworkDisplay {
                         f.Draw(e);
                         f.PayloadTick();
                         break;
-                    case FireworkVisual.FireworkState.Discard:
-                        fireworks.Remove(fireworks[i]);
-                        break;
                 }
             }
-        }
-
-        private void listBox_Click(object sender, EventArgs e) {
-            ListBox lb = sender as ListBox;
-            Console.WriteLine($"DEBUG: Selected item {lb.SelectedIndex}: {lb.Items[lb.SelectedIndex].ToString()}");
-            menu.SelectItem(lb.Items[lb.SelectedIndex].ToString());
-
-            lb.Items.Clear();
-            lb.Items.AddRange(menu.Items.ToArray());
-            lb.Size = new Size(1240, 4 + (28 * menu.Items.Count));
         }
 
         public void Start() {
@@ -79,12 +54,36 @@ namespace FireworkDisplay {
             Refresh();
         }
 
-        void AddFirework(FireworkVisual firework) {
-            fireworks.Add(firework);
-        }
-
         void AddFirework(Firework firework) {
             fireworks.Add(new FireworkVisual(firework));
+        }
+
+        private void previewToolStripMenuItem_DropDownOpening(object sender, EventArgs e) {
+            ToolStripMenuItem mi = sender as ToolStripMenuItem;
+
+            List<string> fireworkNames = _context.Fireworks.Select(f => f.Name).ToList();
+            ToolStripMenuItem[] tsiArray = new ToolStripMenuItem[fireworkNames.Count];
+
+            for (int i = 0; i < tsiArray.Length; i++) {
+                ToolStripMenuItem tsi = new ToolStripMenuItem(fireworkNames[i]);
+                tsi.Click += new EventHandler(preview_DropDownItem_Click);
+                tsiArray[i] = tsi;
+            }
+            mi.DropDownItems.Clear();
+            mi.DropDownItems.AddRange(tsiArray);
+        }
+
+        private void preview_DropDownItem_Click(object sender, EventArgs e) {
+            ToolStripMenuItem mi = sender as ToolStripMenuItem;
+
+            string clickedName = mi.Text;
+            fireworks.Clear();
+            Firework f1 = new Firework();
+            AddFirework(_context.Fireworks.Where(f => f.Name == clickedName).Include(f => f.Payloads).Include(f => f.Rocket).Single());
+        }
+
+        private void addRocketToolStripMenuItem_Click(object sender, EventArgs e) {
+
         }
     }
 }

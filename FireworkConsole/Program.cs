@@ -10,8 +10,8 @@ namespace FireworkConsole {
         static void Main() {
             FireworkContext _context = new FireworkContext();
             // ensureCreatedCustom is only necessary on the first run to create the database
-            _context.ensureCreatedCustom();
-            
+            //_context.ensureCreatedCustom();
+            _context.Dispose();
 
             /*
             ReadPayloads();
